@@ -6,7 +6,7 @@ type PageIntroProps = {
 
 export function PageIntro({ eyebrow, title, description }: PageIntroProps) {
   return (
-    <section className="page-intro">
+    <section className="container page-intro">
       <p className="eyebrow">{eyebrow}</p>
       <div className="intro-grid">
         <h1>{title}</h1>

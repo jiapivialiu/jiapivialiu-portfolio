@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --color-paper: #f2f0ea;
-  --color-paper-deep: #e8e4dc;
-  --color-ink: #111111;
+  --color-paper: #fbfaf7;
+  --color-paper-deep: #f3f1ec;
+  --color-ink: #121212;
   --color-muted: #6d6961;
-  --color-line: #c9c4ba;
+  --color-line: #dedbd4;
   --color-accent: #3155d9;
   --color-charcoal: #1c1c1a;
   --container-max: 108rem;
@@ -55,8 +55,6 @@ a { color: inherit; text-decoration: none; }
 
 .skip-link:focus { transform: translateY(0); }
 
-.site-header { border-bottom: 1px solid var(--color-line); }
-
 .nav-shell { min-height: 5.25rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
 
 .wordmark { font-size: 0.78rem; font-weight: 650; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; }
@@ -92,23 +90,26 @@ a { color: inherit; text-decoration: none; }
   max-width: 15ch;
   margin: clamp(1.5rem, 4vw, 3.5rem) 0;
   font-family: var(--font-display), serif;
-  font-size: clamp(3.65rem, 9.2vw, 10.5rem);
   font-weight: 400;
-  line-height: 0.86;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.045em;
+}
+
+.foundation-hero h1 {
+  font-size: clamp(3rem, 6.2vw, 7.4rem);
+  line-height: 0.94;
 }
 
 .foundation-hero em { color: var(--color-accent); font-weight: 400; }
 
-.foundation-meta { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem; align-items: end; max-width: 68rem; margin-top: 1.5rem; border-top: 1px solid var(--color-line); padding-top: 1.25rem; }
+.foundation-meta { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem; align-items: end; max-width: 68rem; margin-top: clamp(2rem, 4vw, 3.5rem); }
 .foundation-meta p { max-width: 34rem; margin: 0; color: var(--color-muted); }
 .text-link { position: relative; font-size: 0.9rem; font-weight: 600; }
 
 .page-intro { padding-block: clamp(5rem, 12vw, 11rem); }
 .intro-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(16rem, 0.7fr); gap: clamp(2rem, 7vw, 8rem); align-items: end; }
-.page-intro h1 { margin-bottom: 0; font-size: clamp(3.5rem, 7.5vw, 8.5rem); }
+.page-intro h1 { margin-bottom: 0; font-size: clamp(3.5rem, 7.5vw, 8.5rem); line-height: 0.9; }
 .intro-copy { max-width: 34rem; margin: 0 0 0.6rem; color: var(--color-muted); font-size: clamp(1rem, 1.4vw, 1.25rem); }
-.status-line { margin-top: clamp(5rem, 12vw, 10rem); border-top: 1px solid var(--color-line); padding-top: 1rem; color: var(--color-muted); }
+.status-line { margin-top: clamp(5rem, 12vw, 10rem); color: var(--color-muted); }
 
 .site-footer { background: var(--color-charcoal); color: var(--color-paper); }
 .footer-shell { min-height: 14rem; display: flex; flex-direction: column; justify-content: space-between; padding-block: 2.5rem; }
@@ -119,7 +120,7 @@ a { color: inherit; text-decoration: none; }
   .nav-shell { min-height: auto; padding-block: 1.15rem; align-items: flex-start; }
   .nav-list { display: grid; grid-template-columns: repeat(2, auto); column-gap: 1.25rem; row-gap: 0.45rem; }
   .foundation-hero { justify-content: flex-start; padding-top: 7rem; }
-  .foundation-hero h1 { font-size: clamp(3.6rem, 17vw, 6.5rem); }
+  .foundation-hero h1 { font-size: clamp(3.1rem, 14vw, 5.5rem); line-height: 0.96; }
   .foundation-meta, .intro-grid { grid-template-columns: 1fr; }
   .foundation-meta { align-items: start; }
   .page-intro h1 { font-size: clamp(3.6rem, 15vw, 6rem); }

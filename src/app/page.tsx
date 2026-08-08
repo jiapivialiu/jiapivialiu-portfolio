@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <section className="foundation-hero">
+    <section className="container foundation-hero">
       <p className="eyebrow">Statistics · Machine Learning · AI Systems</p>
       <h1>
         I build models.

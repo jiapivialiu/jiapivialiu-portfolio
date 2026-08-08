@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: "light",
-  themeColor: "#f2f0ea",
+  themeColor: "#fbfaf7",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -41,7 +41,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <a className="skip-link" href="#main-content">Skip to content</a>
         <SiteHeader />
-        <main id="main-content" className="container main-content">
+        <main id="main-content" className="main-content">
           {children}
         </main>
         <SiteFooter />
