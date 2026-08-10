@@ -1,8 +1,32 @@
 import type { Metadata } from "next";
-import { PageIntro } from "@/components/page-intro";
 
-export const metadata: Metadata = { title: "Work" };
+import { WorkIndex } from "@/components/work-index";
 
-export default function WorkPage() {
-  return <PageIntro eyebrow="01 / Selected work" title="Systems, models, and the decisions around them." description="Case studies in recommender systems, AI systems, and reliable statistical learning are being prepared." />;
+export const metadata: Metadata = {
+  title: "Work",
+  description: "Selected statistical research, machine learning systems, recommender systems, and AI evaluation work by Olivia Liu.",
+  alternates: { canonical: "/work" },
+};
+
+type WorkPageProps = {
+  searchParams: Promise<{ module?: string | string[] }>;
+};
+
+export default async function WorkPage({ searchParams }: WorkPageProps) {
+  const requestedModule = (await searchParams).module;
+  const initialFilter =
+    requestedModule === "statistics" || requestedModule === "engineering" || requestedModule === "evaluation"
+      ? requestedModule
+      : "all";
+
+  return (
+    <div className="work-page container">
+      <header className="route-hero">
+        <p className="section-label">01 / Work index</p>
+        <h1>What I build.<br /><em>How I know it works.</em></h1>
+        <p>Public research and engineering artifacts organized by one primary module. Cross-tags show the intersections without duplicating the work.</p>
+      </header>
+      <WorkIndex initialFilter={initialFilter} />
+    </div>
+  );
 }

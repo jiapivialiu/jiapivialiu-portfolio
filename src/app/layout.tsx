@@ -14,25 +14,32 @@ const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono", display: 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Jiaping Liu — Machine Learning, Statistics & AI Evaluation",
-    template: "%s — Jiaping Liu",
+    default: `${siteConfig.name} — Machine Learning, Statistics & AI Evaluation`,
+    template: `%s — ${siteConfig.name}`,
   },
   description: siteConfig.description,
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Jiaping Liu — Machine Learning, Statistics & AI Evaluation",
+    title: `${siteConfig.name} — Machine Learning, Statistics & AI Evaluation`,
     description: siteConfig.description,
     url: siteConfig.url,
     siteName: siteConfig.name,
     locale: "en_CA",
     type: "website",
+    images: [{ url: "/images/main-mall.jpg", width: 1200, height: 800, alt: "UBC Main Mall in Vancouver" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} — Machine Learning, Statistics & AI Evaluation`,
+    description: siteConfig.description,
+    images: ["/images/main-mall.jpg"],
   },
   robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
   colorScheme: "light",
-  themeColor: "#fbfaf7",
+  themeColor: "#FAFAF7",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

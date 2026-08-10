@@ -6,8 +6,8 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="container nav-shell">
-        <Link className="wordmark" href="/" aria-label="Jiaping Liu, home">
-          Jiaping Liu
+        <Link className="wordmark" href="/" aria-label={`${siteConfig.name}, home`}>
+          <span>OL</span>{siteConfig.name}
         </Link>
         <nav aria-label="Primary navigation">
           <ul className="nav-list">
