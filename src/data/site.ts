@@ -20,11 +20,25 @@ export type Project = {
   problem: string;
   artifact: string;
   repoUrl: string;
+  repoLabel?: string;
+  additionalLinks?: readonly {
+    label: string;
+    url: string;
+  }[];
   paperUrl?: string;
   demoUrl?: string;
   technologies: readonly string[];
   status: "Open source" | "Research" | "Hackathon" | "In progress";
+  indexLabel?: string;
   featured: boolean;
+};
+
+export type Note = {
+  category: string;
+  title: string;
+  description: string;
+  destination: "academics" | "ml-systems";
+  href: string;
 };
 
 export const moduleLabels: Record<ModuleKey, string> = {
@@ -35,78 +49,86 @@ export const moduleLabels: Record<ModuleKey, string> = {
 };
 
 export const siteConfig = {
-  name: "Olivia Liu",
+  name: "Jiaping (Olivia) Liu",
   fullName: "Jiaping (Olivia) Liu",
   handle: "@jiapivialiu",
   url: "https://jiapivialiu.com",
-  email: "jiaping.liu@stat.ubc.ca",
+  email: "jiapivialiu@gmail.com",
   github: "https://github.com/jiapivialiu",
   linkedin: "https://www.linkedin.com/in/jiaping9",
+  scholar: "https://scholar.google.ca/citations?user=hbZmyugAAAAJ&hl=en",
   location: "Vancouver, Canada",
   role: "Statistics PhD · ML Systems Builder · AI Evaluation Researcher",
   description:
-    "Olivia Liu builds intelligent systems and evaluates how well they work across statistics, recommender systems, machine learning engineering, and AI evaluation.",
-  navigation: [
-    { label: "Work", href: "/work" },
-    { label: "Notes", href: "/notes" },
-    { label: "About", href: "/about" },
-  ],
+    "Jiaping (Olivia) Liu builds intelligent systems and evaluates how well they work across statistics, recommender systems, machine learning engineering, and AI evaluation.",
 } as const;
 
 export const identityModules: readonly IdentityModule[] = [
   {
-    key: "statistics",
+    key: "engineering",
     index: "01",
+    title: "ML Systems",
+    verb: "Build & evaluate",
+    description: "Building intelligent systems and evaluating how they behave in the real world.",
+    themes: ["Recommendation", "Agent workflows", "AI evaluation", "ML systems"],
+    href: "/ml-systems#projects",
+  },
+  {
+    key: "statistics",
+    index: "02",
     title: "Statistical Reasoning",
     verb: "Reason carefully",
     description: "Reasoning about uncertainty before turning data into decisions.",
     themes: ["Uncertainty", "Estimation", "Optimization", "Scientific software"],
-    href: "/work?module=statistics",
-  },
-  {
-    key: "engineering",
-    index: "02",
-    title: "Engineering",
-    verb: "Build systems",
-    description: "Building models, pipelines, and systems that survive contact with the real world.",
-    themes: ["Recommendation", "Ranking & retrieval", "ML systems", "Multimodal AI"],
-    href: "/work?module=engineering",
-  },
-  {
-    key: "evaluation",
-    index: "03",
-    title: "AI Evaluation",
-    verb: "Evaluate intelligence",
-    description: "Turning model behavior into evidence we can inspect, compare, and trust.",
-    themes: ["LLM & agent evals", "Judge calibration", "Failure analysis", "Release decisions"],
-    href: "/work?module=evaluation",
+    href: "/academics",
   },
   {
     key: "life",
-    index: "04",
+    index: "03",
     title: "Life",
     verb: "Live curiously",
     description: "A life shaped by mountains, Main Mall, movement, food, and small discoveries.",
     themes: ["UBC", "Vancouver", "Hiking", "Photography"],
-    href: "/about#life",
+    href: "/life",
   },
 ] as const;
 
 export const projects: readonly Project[] = [
   {
+    slug: "ai-native-research-workflow",
+    primaryCategory: "evaluation",
+    crossTags: ["engineering", "statistics"],
+    title: "AI-native research workflow",
+    shortDescription: "Skills and MCP tooling for rigorous dissertation and defence workflows.",
+    longDescription:
+      "A growing suite of reusable skills and MCP tools for coordinating evidence, document production, review, and evaluation across a high-stakes statistical research workflow.",
+    problem: "How can agentic workflows support complex academic work while keeping sources, decisions, and human judgment inspectable?",
+    artifact: "The first completed component is a reusable skill for styling statistical papers; additional workflow and evaluation artifacts are in development.",
+    repoUrl: "https://github.com/jiapivialiu/stat-paper-styling-skill",
+    repoLabel: "stat-paper-styling-skill",
+    technologies: ["Codex skills", "MCP", "Agent workflows", "Evaluation design"],
+    status: "In progress",
+    featured: true,
+  },
+  {
     slug: "rtestim",
     primaryCategory: "statistics",
     crossTags: ["engineering"],
-    title: "Estimating a changing reproduction number",
+    title: "Estimating a time-varying reproduction number",
     shortDescription: "Locally adaptive epidemic tracking with Poisson trend filtering.",
     longDescription:
       "A collaborative R package and research implementation for estimating time-varying effective reproduction numbers using a Poisson likelihood, trend-filtering regularization, and cross-validation.",
     problem: "How can epidemic growth be estimated without forcing the underlying trajectory to be globally smooth?",
     artifact: "Inspect the public R package, examples, and linked research implementation.",
-    repoUrl: "https://github.com/jiapivialiu/rtestim",
+    repoUrl: "https://dajmcdon.github.io/rtestim/",
+    repoLabel: "Package site",
+    additionalLinks: [
+      { label: "Source code", url: "https://github.com/jiapivialiu/rt-est-manuscript" },
+    ],
     paperUrl: "https://pmc.ncbi.nlm.nih.gov/articles/PMC11329163/",
-    technologies: ["R", "Trend filtering", "Poisson models", "Optimization"],
+    technologies: ["R", "C++", "Convex Optimization", "Nonparametric regression", "Poisson model", "Computational biology"],
     status: "Research",
+    indexLabel: "Methodology",
     featured: true,
   },
   {
@@ -120,15 +142,38 @@ export const projects: readonly Project[] = [
     problem: "How do we make flexible statistical estimation computationally practical and reusable?",
     artifact: "Explore the public R and Python implementations.",
     repoUrl: "https://github.com/jiapivialiu/trendfilter-py",
-    technologies: ["Python", "C++", "pybind11", "Numerical methods"],
+    repoLabel: "Python package",
+    additionalLinks: [
+      { label: "R package", url: "https://github.com/glmgen/trendfilter" },
+      { label: "Source code", url: "https://github.com/jiapivialiu/kf-tf-linear" },
+    ],
+    technologies: ["Python", "R", "C++", "Convex optimization", "Large-scale linear system"],
     status: "Open source",
+    indexLabel: "Algorithm",
+    featured: false,
+  },
+  {
+    slug: "ten-years-of-statistics",
+    primaryCategory: "statistics",
+    crossTags: [],
+    title: "Ten years of thinking statistically",
+    shortDescription: "A personal reflection on a decade shaped by statistics.",
+    longDescription:
+      "A long-form reflection on how ten years of studying and practicing statistics changed the way I approach evidence, uncertainty, computation, and the limits of what data can tell us.",
+    problem: "What remains after a decade of learning how to reason with data?",
+    artifact: "A personal essay connecting statistical training, research practice, and the habits of mind that extend beyond any single method.",
+    repoUrl: "",
+    repoLabel: "Essay forthcoming",
+    technologies: ["Statistical reasoning", "Research practice", "Scientific writing"],
+    status: "In progress",
+    indexLabel: "Reflection",
     featured: false,
   },
   {
     slug: "recforge",
     primaryCategory: "engineering",
     crossTags: ["statistics", "evaluation"],
-    title: "RecForge",
+    title: "Modern Personalized Recommendation",
     shortDescription: "An industrial-style recommendation playground for user growth.",
     longDescription:
       "A local, synthetic-data recommender pipeline that separates multi-channel retrieval, FM + DCN v2 ranking, a Transformer sequence tower, business reranking, and offline evaluation.",
@@ -143,7 +188,7 @@ export const projects: readonly Project[] = [
     slug: "vela-ai",
     primaryCategory: "engineering",
     crossTags: ["evaluation"],
-    title: "Vela AI",
+    title: "Multi-agent pipeline",
     shortDescription: "A multimodal workflow for localized ecommerce product imagery.",
     longDescription:
       "A hackathon prototype that removes text from product images, interprets visual content, generates Canadian English and French listings, and runs copy and language quality checks through a Streamlit workflow.",
@@ -170,55 +215,78 @@ export const projects: readonly Project[] = [
     status: "Hackathon",
     featured: true,
   },
-  {
-    slug: "agent-evaluation",
-    primaryCategory: "evaluation",
-    crossTags: ["engineering", "statistics"],
-    title: "Evaluating agentic systems",
-    shortDescription: "A developing practice around trajectories, judges, regressions, and human review.",
-    longDescription:
-      "An emerging research direction for evaluating tool-using systems through observable trajectories, calibrated judges, regression suites, failure taxonomies, and human-in-the-loop release decisions.",
-    problem: "How should reliability be measured when a system acts across multiple steps rather than returning one answer?",
-    artifact: "Public artifacts will be linked as the work becomes documented and reproducible.",
-    repoUrl: "",
-    technologies: ["Evaluation design", "LLM-as-a-judge", "Regression testing", "HITL"],
-    status: "In progress",
-    featured: false,
-  },
 ] as const;
 
 export const experiences = [
   {
     organization: "JD.com",
-    label: "Recommender systems",
-    detail: "Ranking, user modeling, experimentation, TensorFlow workflows, and online/offline metric analysis.",
+    title: "Machine Learning Engineer (Algorithm Development Engineer)",
+    industry: "E-commerce",
+    label: "Personalized recommendation system",
+    bullets: [
+      "Improved click-through rate by ranking retrieved products for push and messaging recommendations, combining feature engineering, deep learning, joint pointwise and pairwise learning, and large language models; achieved a +0.31% relative overall pCTR increase and +0.78% among high-active customers.",
+      "Built SQL monitoring panels for online and offline metrics, conducted A/B experiments, explored natural-language query understanding, and addressed online-offline inconsistency and cold start for low-active users.",
+    ],
+    publicExample: "An independently built, non-confidential example inspired by this internship context.",
+    href: "/ml-systems#recforge",
+    linkLabel: "Modern personalized recommendation",
   },
   {
     organization: "RBC",
-    label: "Risk modeling",
-    detail: "Large-scale PySpark workflows, survival modeling, class imbalance, and performance optimization.",
+    title: "Risk Modeling Analyst",
+    industry: "Financial services",
+    label: "Credit risk modeling pipeline",
+    bullets: [
+      "Built a credit-risk modeling pipeline on billion-level user-behavior data, using survival analysis as a baseline to predict probability of default for overdraft accounts.",
+      "Resolved large-scale data-quality issues involving duplicated records, substantial missingness, and incorrect account open, reopen, and close dates.",
+      "Explored LLM-derived transaction embeddings and reimplemented survival-model fitting in PyTorch, reducing training time by more than 4× on million-row data with distributed scaling support.",
+    ],
   },
   {
     organization: "UBC",
-    label: "Statistics PhD",
+    title: "PhD Candidate in Statistics",
+    industry: "Higher education & research",
+    label: "Computational statistics research",
     detail: "Methodology, computational optimization, open-source research software, writing, and teaching.",
+  },
+  {
+    organization: "UBC ASDa",
+    title: "Statistical Consultant",
+    industry: "Research consulting",
+    label: "Statistical consulting across research domains",
+    detail: "Collaborated with more than 10 clients across research domains, applying statistical modeling and machine learning and independently delivering data-driven analysis reports.",
+    href: "https://stat.ubc.ca/applied-statistics-and-data-science-group-asda",
+    linkLabel: "Applied Statistics and Data Science Group (ASDa)",
+  },
+  {
+    organization: "Statistics Canada",
+    title: "Student Researcher",
+    industry: "Government",
+    label: "Machine learning for record linkage",
+    detail: "Explored machine-learning approaches for reliably linking records when identifying information is incomplete or inconsistent.",
   },
 ] as const;
 
-export const notes = [
+export const notes: readonly Note[] = [
   {
     category: "Statistical reasoning",
-    title: "What does it mean to reason from data?",
-    description: "Distribution, uncertainty, assumptions, and the discipline of interpretation.",
+    title: "Ten years of thinking statistically",
+    description: "A personal reflection on evidence, uncertainty, computation, and the limits of what data can tell us.",
+    destination: "academics",
+    href: "/academics#ten-years-of-statistics",
   },
   {
     category: "ML systems",
     title: "Recommendation is a system, not a model",
     description: "Feedback loops, long-term value, and the gap between offline scores and product behavior.",
+    destination: "ml-systems",
+    href: "/ml-systems#recforge",
   },
   {
     category: "AI evaluation",
     title: "How do we know it is actually good?",
     description: "Judges, trajectories, regressions, and the failure modes hidden by a single metric.",
+    destination: "ml-systems",
+    href: "/ml-systems#ai-native-research-workflow",
   },
 ] as const;

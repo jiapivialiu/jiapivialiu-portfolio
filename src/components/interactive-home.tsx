@@ -17,7 +17,6 @@ import {
   experiences,
   identityModules,
   moduleLabels,
-  notes,
   projects,
   siteConfig,
   type IdentityModule,
@@ -117,7 +116,7 @@ function ModuleRow({ item, index }: { item: IdentityModule; index: number }) {
 }
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const href = project.repoUrl || "/work?module=evaluation";
+  const href = project.repoUrl || (project.primaryCategory === "statistics" ? "/academics" : "/ml-systems#projects");
   const external = Boolean(project.repoUrl);
   const reducedMotion = useReducedMotion();
   return (
@@ -154,8 +153,6 @@ function InteractiveHomeContent() {
   const { scrollYProgress } = useScroll({ target: hero, offset: ["start start", "end start"] });
   const visualScale = useTransform(scrollYProgress, [0, 1], [1, reducedMotion ? 1 : 1.065]);
   const visualY = useTransform(scrollYProgress, [0, 1], [0, reducedMotion ? 0 : 70]);
-  const progress = useTransform(scrollYProgress, [0, 0.88], ["0%", "100%"]);
-  const progressWidth = useMotionTemplate`${progress}`;
   const featuredProjects = projects.filter((project) => project.featured);
 
   return (
@@ -171,37 +168,85 @@ function InteractiveHomeContent() {
           </div>
           <p className="hero-role">{siteConfig.role}</p>
           <h1 id="hero-title">I build intelligent systems—and study how to know when they <em>actually work.</em></h1>
-          <p className="hero-support">Working across statistical reasoning, recommender systems, machine learning engineering, and AI evaluation.</p>
-          <nav className="hero-links" aria-label="Olivia Liu online">
-            <Link href="/work">Selected work <span aria-hidden="true">↘</span></Link>
-            <a href={siteConfig.github} target="_blank" rel="noreferrer">GitHub ↗</a>
-            <a href={siteConfig.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
-            <a href="/resume.pdf" target="_blank" rel="noreferrer">Résumé ↗</a>
-            <a href={`mailto:${siteConfig.email}`}>Contact ↗</a>
+          <p className="hero-support">My work connects large-scale machine learning engineering for personalized recommendation with rigorous evaluation of AI agents, tools, and workflows, grounded in statistical reasoning.</p>
+          <nav className="hero-links" aria-label={`${siteConfig.name} online`}>
+            <div className="hero-links-primary">
+              <Link href="/ml-systems">ML systems <span aria-hidden="true">↘</span></Link>
+              <Link href="/academics">Research <span aria-hidden="true">↘</span></Link>
+              <Link href="/life">Life ↘</Link>
+            </div>
+            <div className="hero-links-secondary">
+              <a href={siteConfig.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+              <a href={siteConfig.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
+              <a href="/resume.pdf" target="_blank" rel="noreferrer">Résumé ↗</a>
+              <a href={`mailto:${siteConfig.email}`}>Contact ↗</a>
+            </div>
           </nav>
-        </div>
-        <div className="container hero-path" aria-label="Professional progression">
-          <div className="path-track"><motion.span style={{ width: progressWidth }} /></div>
-          {[
-            ["01", "Reason carefully"],
-            ["02", "Build systems"],
-            ["03", "Evaluate intelligence"],
-            ["04", "Live curiously"],
-          ].map(([number, label]) => <p key={number}><span>{number}</span>{label}</p>)}
         </div>
       </section>
 
       <section className="editorial-intro container" aria-labelledby="intro-title">
         <p className="section-label">At a glance · Vancouver / UBC</p>
         <div>
-          <h2 id="intro-title">Statistics is the foundation.<br />Intelligent systems are the field.</h2>
-          <p>I’m Olivia Liu, a Statistics PhD candidate at UBC working at the intersection of statistical reasoning, machine learning systems, and AI evaluation. My work spans open-source statistical software and computational research, recommender systems at JD.com, large-scale risk modeling at RBC, and emerging evaluation methods for LLM and agentic systems. I’m especially interested in ranking, retrieval, multimodal models, and evaluation pipelines that turn model behavior into trustworthy product decisions.</p>
+          <p id="intro-title">I’m Jiaping Liu. I also go by Olivia. I build machine learning systems and design rigorous ways to evaluate them, with a particular focus on personalized recommendation, ranking, and retrieval. My experience spans production recommender systems at JD.com, large-scale risk modeling at RBC, and open-source statistical software and computational research through my Statistics PhD at UBC. I’m especially interested in large-scale online ML systems, multimodal and agentic models, and evaluation pipelines that turn model behavior into reliable evidence for product decisions.</p>
+        </div>
+      </section>
+
+      <section className="experience-section" aria-labelledby="experience-title">
+        <div className="container">
+          <div className="experience-heading">
+            <p className="section-label">Applied evidence</p>
+            <h2 id="experience-title">Applied at scale.</h2>
+          </div>
+          <p className="experience-scroll-hint">Scroll horizontally for evidence <span aria-hidden="true">→</span></p>
+          <div className="experience-list" role="region" aria-label="Work experience table; scroll horizontally to view all columns" tabIndex={0}>
+            <div className="experience-list-header" aria-hidden="true">
+              <span>No. / Industry&nbsp;</span>
+              <span>Organization&nbsp;</span>
+              <span>Title&nbsp;</span>
+              <span>Project&nbsp;</span>
+              <span>Evidence →</span>
+            </div>
+            {experiences.map((experience, index) => (
+              <article key={`${experience.organization}-${experience.title}`}>
+                <div className="experience-index">
+                  <strong>0{index + 1}</strong>
+                  <span>{experience.industry}</span>
+                </div>
+                <h3>{experience.organization}</h3>
+                <div className="experience-role">
+                  <strong>{experience.title}</strong>
+                </div>
+                <span className="experience-project-summary">{experience.label}</span>
+                <div className="experience-evidence">
+                  {"bullets" in experience ? (
+                    <ul className="experience-bullets">
+                      {experience.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
+                    </ul>
+                  ) : (
+                    <span className="experience-detail">{experience.detail}</span>
+                  )}
+                  {"href" in experience && (
+                    <>
+                      {"publicExample" in experience && <small>{experience.publicExample}</small>}
+                      {experience.href.startsWith("/") ? (
+                        <Link href={experience.href} className="experience-project-link">{experience.linkLabel} ↗</Link>
+                      ) : (
+                        <a href={experience.href} className="experience-project-link" target="_blank" rel="noreferrer">{experience.linkLabel} ↗</a>
+                      )}
+                    </>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+          <p className="experience-note">Employer work is summarized at a high level. Linked public projects are independently built examples and contain no confidential information.</p>
         </div>
       </section>
 
       <section className="identity-section" aria-labelledby="identity-title">
         <div className="container identity-heading">
-          <p className="section-label">One practice · four dimensions</p>
+          <p className="section-label">One practice · three dimensions</p>
           <h2 id="identity-title">The way I work.</h2>
           <p>AI belongs in both building and evaluation: one asks what a system can do; the other asks what evidence should make us trust it.</p>
         </div>
@@ -210,79 +255,12 @@ function InteractiveHomeContent() {
         </div>
       </section>
 
-      <section className="featured-section" aria-labelledby="featured-title">
+      <section className="featured-section" aria-label="Selected work · verified public artifacts">
         <div className="container featured-heading">
           <p className="section-label">Selected work · verified public artifacts</p>
-          <h2 id="featured-title">Methods become systems.<br />Systems produce evidence.</h2>
-          <Link href="/work" className="section-link">View the complete work index ↗</Link>
         </div>
         <div className="featured-grid container">
           {featuredProjects.map((project, index) => <ProjectCard project={project} index={index} key={project.slug} />)}
-        </div>
-      </section>
-
-      <section className="experience-section" aria-labelledby="experience-title">
-        <div className="container">
-          <p className="section-label">Applied evidence</p>
-          <h2 id="experience-title">Research depth.<br />Production context.</h2>
-          <div className="experience-list">
-            {experiences.map((experience, index) => (
-              <article key={experience.organization}>
-                <span>0{index + 1}</span>
-                <h3>{experience.organization}</h3>
-                <p><strong>{experience.label}</strong><span>{experience.detail}</span></p>
-              </article>
-            ))}
-          </div>
-          <p className="experience-note">Employer work is summarized at a high level and is not presented as open source.</p>
-        </div>
-      </section>
-
-      <section className="notes-preview" aria-labelledby="notes-title">
-        <div className="container notes-heading">
-          <p className="section-label">Selected thinking</p>
-          <h2 id="notes-title">Questions worth keeping open.</h2>
-        </div>
-        <div className="container note-list">
-          {notes.map((note, index) => (
-            <Link href="/notes" key={note.title}>
-              <span>0{index + 1} · {note.category}</span>
-              <h3>{note.title}</h3>
-              <p>{note.description}</p>
-              <b aria-hidden="true">↗</b>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="life-preview" id="life" aria-labelledby="life-title">
-        <div className="container life-layout">
-          <div className="life-copy">
-            <p className="section-label">04 · Life</p>
-            <h2 id="life-title">Curiosity needs a landscape.</h2>
-            <p>UBC’s long perspectives, Vancouver’s weather, steep trails, good food, strength training, photography, and the people who make a place feel lived in.</p>
-            <Link href="/about#life" className="section-link">More beyond the work ↗</Link>
-          </div>
-          <div className="life-collage" aria-label="Places and interests that shape Olivia's life">
-            <div className="life-orb life-orb-main"><Image src="/images/main-mall.jpg" alt="UBC Main Mall" fill sizes="(max-width: 768px) 70vw, 34vw" /></div>
-            <div className="life-orb life-orb-cobalt"><span>mountains<br />after rain</span></div>
-            <div className="life-orb life-orb-coral"><span>food · friends<br />small discoveries</span></div>
-            <p>VANCOUVER<br />49° N</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="contact-section" aria-labelledby="contact-title">
-        <div className="container contact-layout">
-          <p className="section-label">Now / next</p>
-          <div>
-            <h2 id="contact-title">Let’s build something<br />worth evaluating.</h2>
-            <p>Open to Applied Scientist, Machine Learning Engineer, recommendation and ranking, and AI evaluation opportunities.</p>
-            <div className="contact-links">
-              <a href={`mailto:${siteConfig.email}`}>Start a conversation ↗</a>
-              <a href={siteConfig.linkedin} target="_blank" rel="noreferrer">Connect on LinkedIn ↗</a>
-            </div>
-          </div>
         </div>
       </section>
     </>
