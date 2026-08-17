@@ -103,9 +103,15 @@ export const projects: readonly Project[] = [
     longDescription:
       "A growing suite of reusable skills and MCP tools for coordinating evidence, document production, review, and evaluation across a high-stakes statistical research workflow.",
     problem: "How can agentic workflows support complex academic work while keeping sources, decisions, and human judgment inspectable?",
-    artifact: "The first completed component is a reusable skill for styling statistical papers; additional workflow and evaluation artifacts are in development.",
+    artifact: "Completed components include reusable skills for styling statistical papers and evaluating presentation rehearsals; additional workflow and evaluation artifacts are in development.",
     repoUrl: "https://github.com/jiapivialiu/stat-paper-styling-skill",
     repoLabel: "stat-paper-styling-skill",
+    additionalLinks: [
+      {
+        label: "presentation-rehearsal-feedback-skill",
+        url: "https://github.com/jiapivialiu/presentation-rehearsal-feedback-skill",
+      },
+    ],
     technologies: ["Codex skills", "MCP", "Agent workflows", "Evaluation design"],
     status: "In progress",
     featured: true,
