@@ -500,11 +500,6 @@ Statistical learning · optimization · algorithms · scientific computing
 
 Keep descriptions short.
 
-The résumé remains the source for exhaustive employment detail.
-
-Add a clear:
-Résumé ↗
-
 ======================================================================
 9. THINKING / NOTES
 ======================================================================
@@ -801,7 +796,7 @@ prefers-reduced-motion.
 
 Desktop navigation:
 
-JIAPING LIU                         Work   Notes   About   Résumé ↗
+JIAPING LIU                         Work   Notes   About
 
 It may begin transparent over the hero and become a compact solid /
 blurred nav after scroll.
@@ -822,15 +817,11 @@ Primary routes:
  /notes/[slug]
  /about
 
-Resume:
- /resume.pdf
-
 ======================================================================
 16. PROJECT CASE STUDY DESIGN
 ======================================================================
 
-Each project page should feel more like a technical editorial feature
-than a résumé entry.
+Each project page should feel like a technical editorial feature.
 
 Template:
 
