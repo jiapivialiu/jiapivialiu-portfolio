@@ -117,6 +117,26 @@ export const projects: readonly Project[] = [
     featured: true,
   },
   {
+    slug: "topics-in-trend-filtering-with-poisson-loss",
+    primaryCategory: "statistics",
+    crossTags: ["engineering"],
+    title: "Topics in Trend Filtering with Poisson Loss",
+    shortDescription: "Locally adaptive smoothing for count data, supported by stable algorithms and real-world applications.",
+    longDescription:
+      "Count data appear everywhere—from website traffic and disease surveillance to medical imaging—but their variability grows with magnitude, making constant-noise smoothing unreliable. This dissertation develops Poisson trend filtering methods that adapt to abrupt changes without prespecifying where they occur, together with stable and scalable algorithms for complex data structures and ill-conditioned systems. The methods are demonstrated through applications in epidemic surveillance and spatial analysis.",
+    problem: "How can we recover locally adaptive trends from count data without distorting low-count regions or sacrificing computational stability?",
+    artifact: "A PhD dissertation unifying statistical theory, methodology, optimization algorithms, scientific software, and applications to epidemic surveillance and spatial data.",
+    repoUrl: "",
+    repoLabel: "Dissertation link forthcoming",
+    additionalLinks: [
+      { label: "Defence slides", url: "https://github.com/jiapivialiu/poisson-tf-defence-slides" },
+    ],
+    technologies: ["Poisson Models", "Trend Filtering", "Convex Optimization", "Numerical Linear Algebra", "Epidemic Surveillance", "Statistical Theory"],
+    status: "Research",
+    indexLabel: "PhD Dissertation",
+    featured: false,
+  },
+  {
     slug: "rtestim",
     primaryCategory: "statistics",
     crossTags: ["engineering"],
