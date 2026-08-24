@@ -178,7 +178,6 @@ function InteractiveHomeContent() {
             <div className="hero-links-secondary">
               <a href={siteConfig.github} target="_blank" rel="noreferrer">GitHub ↗</a>
               <a href={siteConfig.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
-              <a href="/resume.pdf" target="_blank" rel="noreferrer">Résumé ↗</a>
               <a href={`mailto:${siteConfig.email}`}>Contact ↗</a>
             </div>
           </nav>
