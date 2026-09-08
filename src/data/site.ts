@@ -111,6 +111,10 @@ export const projects: readonly Project[] = [
         label: "presentation-rehearsal-feedback-skill",
         url: "https://github.com/jiapivialiu/presentation-rehearsal-feedback-skill",
       },
+      {
+        label: "review-ubc-dissertation-pdf",
+        url: "https://github.com/jiapivialiu/review-ubc-dissertation-pdf",
+      },
     ],
     technologies: ["Codex skills", "MCP", "Agent workflows", "Evaluation design"],
     status: "In progress",
