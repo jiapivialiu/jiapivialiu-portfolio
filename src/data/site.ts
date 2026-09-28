@@ -130,8 +130,8 @@ export const projects: readonly Project[] = [
       "Count data appear everywhere—from website traffic and disease surveillance to medical imaging—but their variability grows with magnitude, making constant-noise smoothing unreliable. This dissertation develops Poisson trend filtering methods that adapt to abrupt changes without prespecifying where they occur, together with stable and scalable algorithms for complex data structures and ill-conditioned systems. The methods are demonstrated through applications in epidemic surveillance and spatial analysis.",
     problem: "How can we recover locally adaptive trends from count data without distorting low-count regions or sacrificing computational stability?",
     artifact: "A PhD dissertation unifying statistical theory, methodology, optimization algorithms, scientific software, and applications to epidemic surveillance and spatial data.",
-    repoUrl: "",
-    repoLabel: "Dissertation link forthcoming",
+    repoUrl: "http://hdl.handle.net/2429/95559",
+    repoLabel: "Dissertation",
     additionalLinks: [
       { label: "Defence slides", url: "https://github.com/jiapivialiu/poisson-tf-defence-slides" },
     ],
